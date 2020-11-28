@@ -67,8 +67,8 @@ def na_cols(df, na_vals=None, inplace=False, drop=False):
         return cols
     
     
-def one_val_cols(df, na_remove=False):
-    """Return all columns from a data frame that only contain one value.
+def one_val_cols(df):
+    """Return all columns from a data frame that only contain one value and no NAs.
             
     Returns
     -------
@@ -80,7 +80,7 @@ def one_val_cols(df, na_remove=False):
     vals = []
     
     for col in df:
-        if df[col].nunique() == 1:
+        if df[col].nunique() == 1 and df[col].isnull().sum() == 0:
             cols.append(col)
             vals.append(df[col].value_counts().index[0])  
             
